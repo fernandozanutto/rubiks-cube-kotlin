@@ -1,15 +1,22 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+group = "com.github.fernandozanutto"
+version = "0.1"
 
 plugins {
     id("java-library")
+    id("maven-publish")
     kotlin("jvm") version "1.6.21"
 }
 
-group = "com.fzanutto"
-version = "0.1"
-
 repositories {
     mavenCentral()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
 
 dependencies {
@@ -18,8 +25,4 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
 }
